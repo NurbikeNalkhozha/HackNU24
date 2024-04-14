@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <style>
+        * {
+            font-family: "Inter", sans-serif;
+        }
+
+        .page-wrapper {
+            display: flex;
+        }
+
+        .page {
+            display: flex;
+            flex-direction: row;
+        }
+
+        container {
+            flex-grow: 1;
+            /* Дополнительные стили для контейнера */
+        }
+        .cont{
+            display: flex;
+            flex-direction: row;
+        }
+
+        /* Дополнительные стили для .logo, main и других элементов */
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 15px;
+        }
+
+        .container {
+            width: 900px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #histogram {
+            height: 400px;
+            width: 750px;
+            /* Уменьшаем ширину гистограммы */
+            margin-right: 10px;
+            /* Добавляем небольшой отступ между графиками */
+        }
+
+
+        .legend {
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: center;
+            display: flex;
+            /* Располагаем блоки легенды в строку */
+            flex-direction: column;
+            /* Изменяем направление расположения на вертикальное */
+        }
+
+        .legend-item {
+            display: flex;
+            /* Располагаем содержимое блока легенды в строку */
+            align-items: center;
+            /* Выравниваем содержимое блока легенды по вертикали */
+            margin-bottom: 5px;
+            /* Добавляем отступ между элементами легенды */
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+            /* Добавляем отступ между цветовой меткой и текстом */
+        }
+
+        .previous-results,
+        .block {
+            display: flex;
+        }
+
+
+
+        .test-result,
+        .test-analysis,
+        .mistake {
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .test-result h3,
+        .test-analysis h3,
+        .mistake h4 {
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+        .test-result p,
+        .test-analysis p,
+        .mistake p {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+
+        .flags {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+
+        .flag {
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 0 10px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        }
+
+        .flag-content {
+            color: white;
+            display: inline-block;
+            position: relative;
+            padding: 20px;
+        }
+
+        .top {
+            display: block;
+            font-size: 14px;
+        }
+
+        .number {
+            display: block;
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .category {
+            display: block;
+            font-size: 14px;
+        }
+
+        #class-ranking {
+            background-color: #ff5f5f;
+        }
+
+        #school-ranking {
+            background-color: #5f87ff;
+        }
+
+
+#sport-ranking {
+            background-color: #4caf50;
+        }
+
+        .flag::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 10px solid #e0e0e0;
+            transform: translateX(-50%);
+        }
+
+        .nav {
+            width: 250px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-left: 70px;
+            width: 250px;
+            height: 600px;
+        }
+
+        .menuList1 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList1 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList1 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .menuList2 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList2 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList2 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .menuList3 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList3 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList3 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .menuList4 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList4 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList4 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .menuList5 a {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList5 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+.menuList5 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .menuList6 {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            width: 250px;
+            height: 34px;
+            background-color: #54B9EB;
+            /* Установленный цвет фона */
+            border-radius: 15px;
+            color: #fff;
+            /* Цвет текста */
+        }
+
+        .menuList6 a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            /* Убирает подчеркивание текста */
+            color: inherit;
+            /* Наследует цвет текста от родителя */
+            width: 100%;
+            /* Заставляет ссылку заполнять всё доступное пространство */
+        }
+
+        .menuList6 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+        }
+
+        .menuList6 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+            /* Отступ слева для изображения */
+        }
+
+        .menuList7 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList7 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList7 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .menuList8 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList8 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList8 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .menuList9 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center;
+            /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none;
+            /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList9 p {
+            margin-left: 10px;
+            /* Регулируйте отступ по вкусу */
+            color: inherit;
+            /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList9 img {
+            width: 24px;
+            /* Примерный размер, регулируйте под свои нужды */
+            height: auto;
+            /* Поддерживает пропорции изображения */
+        }
+
+        .men {
+            margin-left: 45px;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-left: 45px;
+            margin-right: 45px;
+        }
+
+        .search {
+            width: 620px;
+            border: none;
+
+        }
+
+        #no-border {
+            border: none;
+            outline: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="logo">
+        <div class="loog">
+            <h1>LOGO</h1>
+        </div>
+        <div class="search"><input type="search" name="" id="no-border" placeholder="Поиск"></div>
+        <div class="prof">
+            <div class="aaaa">
+                <div class="lang">
+                    <select id="languageSelect" name="language">
+                        <option value="ru" selected>RUS</option>
+                        <option value="kz">KAZ</option>
+                        <option value="en">ENG</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="cont">
+            <div class="nav">
+                <a href="page1.html">Меню</a>
+                <div class="menu">
+                    <div class="menuLists1">
+                        <div class="menuList1">
+                            <a href="">
+                                <img src="" alt="">
+                                <a href="page1.html">Лента</a>
+                            </a>
+                        </div>
+                        <div class="menuList2">
+                            <a href="">
+                                <img src="" alt="">
+
+                                <a href="page1.html">Расписание</a>
+                            </a>
+                        </div>
+                        <div class="menuList3">
+                            <a href="">
+                                <img src="" alt="">
+                                <a href="page1.html">Оценки</a>
+                            </a>
+                        </div>
+                        <div class="menuList4">
+                            <a href="">
+                                <img src="" alt="">
+
+                                <a href="page1.html">Избранные</a>
+                            </a>
+                        </div>
+                        <div class="menuList5">
+                            <a href="">
+                                <img src="" alt="">
+                                <a href="report.html" style="color:#001aff">Отчет</a>
+                            </a>
+                        </div>
+                        <div class="menuList6">
+                            <a href="">
+                                <img src="" alt="">
+                                <a href="workOnErrors.html">Работа над ошибками</a>
+                            </a>
+                        </div>
+                        <div class="menuList7">
+                            <a href="">
+                                <a href="index.html"><img src="diary-svgrepo-com 1.png" alt="">Diary</a>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="menuLists2">
+                        <div class="menuList8">
+                            <a href="">
+                                <img src="/Users/anm24/Downloads/content_paste_FILL0_wght400_GRAD0_opsz24 1.png" alt="">
+                                <p>Помощь</p>
+                            </a>
+                        </div>
+                        <div class="menuList9">
+                            <a href="">
+                                <img src="" alt="">
+                                <p>Выход</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <container>
+                    <header>
+                        <h2>
+                            Отчет
+                        </h2>
+                        <p style="font-size: 16px;">Ваши истории о стремлении к знаниям, об усилиях и достижениях
+                            студента,
+                            отраженные в мудрости, навыках и опыте.</p>
+
+                        <hr />
+                    </header>
+
+<p style="font-size: 16px;">
+                        Фильтр
+                        <span class="material-symbols-outlined">
+                            menu
+                        </span>
+                    </p>
+
+                    <section class="report" id="analysis-foranalysis1">
+
+                        <div class="mistake">
+                            <p>Вид отчета: общий по предметам.</p>
+                            <p>Дата сформирования: 1 марта 2024 - 22 марта 2024.</p>
+                        </div>
+                        <div class="block">
+                            <center>
+                                <div class="flags">
+                                    <div class="flag" id="class-ranking">
+                                        <div class="flag-content">
+                                            <span class="top">TOP</span>
+                                            <span class="number">5</span>
+                                            <span class="category">класса</span>
+                                        </div>
+                                    </div>
+                                    <div class="flag" id="school-ranking">
+                                        <div class="flag-content">
+                                            <span class="top">TOP</span>
+                                            <span class="number">10</span>
+                                            <span class="category">школы</span>
+                                        </div>
+                                    </div>
+                                    <div class="flag" id="sport-ranking">
+                                        <div class="flag-content">
+                                            <span class="top">TOP</span>
+                                            <span class="number">50</span>
+                                            <span class="category">спорта</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="legend">
+
+                                    <h3>Распределение времени</h3>
+
+                                    <br />
+
+                                    <div class="pie">
+
+                                        <div id="pie-chart"></div>
+                                    </div>
+                                    <div class="legend-item" ; style="color: #364954;">
+                                        <div class="legend-color" style="background-color: #6bb1cc;"></div> Математика
+                                    </div>
+                                    <div class="legend-item" ; style="color: #364954;">
+                                        <div class="legend-color" style="background-color: #aecfd9;"></div> Литература
+                                    </div>
+                                    <div class="legend-item" ; style="color: #364954;">
+                                        <div class="legend-color" style="background-color: #81b4da;"></div> Физика
+                                    </div>
+                                    <div class="legend-item" ; style="color: #364954;">
+                                        <div class="legend-color" style="background-color: #5eaed6;"></div> Химия
+                                    </div>
+                                    <div class="legend-item" ; style="color: #364954;">
+                                        <div class="legend-color" style="background-color: #4299d3;"></div> История
+                                    </div>
+                                    <div class="legend-item" ; style="color: #364954;">
+                                        <div class="legend-color" style="background-color: #2d85ce;"></div> География
+                                    </div>
+
+                                </div>
+                            </center>
+                        </div>
+
+<div class="mistake">
+                            <p>
+                                &emsp;&emsp; Рассмотрим, как вы распределяете время на изучение различных предметов. Вы
+                                проводите больше всего времени на математику и литературу, что, вероятно,
+                                свидетельствует о
+                                вашем интересе к этим предметам и понимании их важности для образования. Физика и
+                                география
+                                получают меньше внимания, возможно, из-за недостатка интереса или трудностей в их
+                                изучении.
+                                История занимает среднее положение, а химия - самое маленькое количество времени. Важно
+                                помнить, что каждый предмет важен, независимо от того, насколько сильно ты его любишь
+                                или
+                                насколько он кажется сложным. Ваш подход к учебе выглядит разумным, но стоит иногда
+                                обратить
+                                внимание на предметы, которым ты уделяешь меньше времени, чтобы не упустить важные
+                                аспекты
+                                образования. Все в ваших руках, продолжай так же активно и целеустремленно!"
+                                .
+                            </p>
+                        </div>
+                        <center>
+                            <div id="histogram"></div>
+                        </center>
+
+                        <div class="mistake">
+                            <p>
+                                &emsp;&emsp; Общее время, потраченное на учебу, увеличивается в середине недели,
+                                достигая
+                                пика в четверг (5.5 часов) и пятницу (6 часов), после чего оно снижается к концу недели.
+                                Это
+                                может указывать на то, что студент активно готовится к занятиям или к экзаменам в
+                                середине
+                                недели, а затем постепенно снижает темп, приближаясь к выходным.
+
+                            </p>
+                        </div>
+                        <center>
+                            <div id="linegraph"></div>
+                        </center>
+
+
+                    </section>
+
+
+                </container>
+
+                <script src="https://d3js.org/d3.v7.min.js"></script>
+                <script>
+                    // Фиктивные данные о времени, проведенном на сайте
+                    var data = [
+                        { date: "2024-04-01", timeSpent: 2.5 },
+                        { date: "2024-04-02", timeSpent: 3 },
+                        { date: "2024-04-03", timeSpent: 4 },
+                        { date: "2024-04-04", timeSpent: 5.5 },
+                        { date: "2024-04-05", timeSpent: 6 },
+                        { date: "2024-04-06", timeSpent: 3.5 },
+                        { date: "2024-04-07", timeSpent: 4 },
+                        // Добавьте больше данных для других дней
+                    ];
+
+                    // Функция для создания гистограммы
+                    function createHistogram(data) {
+                        var svg = d3.select("#histogram")
+                            .append("svg")
+                            .attr("width", 800)
+                            .attr("height", 400);
+
+                        var margin = { top: 20, right: 30, bottom: 30, left: 40 };
+                        var width = +svg.attr("width") - margin.left - margin.right;
+                        var height = +svg.attr("height") - margin.top - margin.bottom;
+
+                        var x = d3.scaleBand()
+                            .range([margin.left, width - margin.right])
+                            .padding(0.1)
+                            .domain(data.map(d => d.date));
+
+
+var y = d3.scaleLinear()
+                            .range([height - margin.bottom, margin.top])
+                            .domain([0, d3.max(data, d => d.timeSpent)]);
+
+                        svg.append("g")
+                            .attr("transform", `translate(0,${height - margin.bottom})`)
+                            .call(d3.axisBottom(x));
+
+                        svg.append("g")
+                            .attr("transform", `translate(${margin.left},0)`)
+                            .call(d3.axisLeft(y));
+
+                        svg.selectAll("rect")
+                            .data(data)
+                            .enter()
+                            .append("rect")
+                            .attr("x", d => x(d.date))
+                            .attr("y", d => y(d.timeSpent))
+                            .attr("width", x.bandwidth())
+                            .attr("height", d => height - margin.bottom - y(d.timeSpent))
+                            .attr("fill", "steelblue");
+                    }
+
+                    createHistogram(data);
+                </script>
+
+                <script src="https://d3js.org/d3.v7.min.js"></script>
+                <script>
+                    // Фиктивные данные о времени, проведенном на сайте по разным темам
+                    var data = [
+                        { subject: "Математика", timeSpent: 20 },
+                        { subject: "Литература", timeSpent: 15 },
+                        { subject: "Физика", timeSpent: 10 },
+                        { subject: "Химия", timeSpent: 8 },
+                        { subject: "История", timeSpent: 12 },
+                        { subject: "География", timeSpent: 10 }
+                        // Добавьте больше данных по другим предметам
+                    ];
+
+                    // Цветовая шкала для круговой диаграммы
+                    var colorScale = d3.scaleOrdinal()
+                        .domain(data.map(d => d.subject))
+                        .range(["#6bb1cc", "#aecfd9", "#81b4da", "#5eaed6", "#4299d3", "#2d85ce"]); // Оттенки голубого
+
+                    // Создание круговой диаграммы
+                    var pie = d3.pie()
+                        .value(d => d.timeSpent);
+
+                    var arc = d3.arc()
+                        .innerRadius(50)
+                        .outerRadius(100);
+
+                    var svg = d3.select("#pie-chart")
+                        .append("svg")
+                        .attr("width", 200)
+                        .attr("height", 200)
+                        .append("g")
+                        .attr("transform", "translate(100,100)");
+
+                    var arcs = svg.selectAll("arc")
+                        .data(pie(data))
+                        .enter()
+                        .append("g")
+                        .attr("class", "arc");
+
+                    arcs.append("path")
+                        .attr("d", arc)
+                        .attr("fill", d => colorScale(d.data.subject));
+                </script>
+
+                <script>
+                    function createLineGraph() {
+                        var svg = d3.select("#linegraph")
+                            .append("svg")
+                            .attr("width", 800)
+                            .attr("height", 400);
+
+                        var margin = { top: 20, right: 30, bottom: 50, left: 40 };
+                        var width = +svg.attr("width") - margin.left - margin.right;
+                        var height = +svg.attr("height") - margin.top - margin.bottom;
+
+// Generate random data for March 2024 
+                        var marchData = [];
+                        var startDate = new Date("2024-03-01");
+                        for (var i = 0; i < 4; i++) {
+                            var endDate = new Date(startDate);
+                            endDate.setDate(endDate.getDate() + 7); // Add 7 days to get end of week 
+                            var errors = Math.floor(Math.random() * 10); // Random errors for the week 
+                            var correctAnswers = Math.floor(Math.random() * 20); // Random correct answers for the week 
+                            marchData.push({
+                                date: startDate.toISOString().split('T')[0], // Format date as "YYYY-MM-DD" 
+                                errors: errors,
+                                correctAnswers: correctAnswers
+                            });
+                            startDate = new Date(endDate);
+                        }
+
+                        var x = d3.scaleBand()
+                            .range([margin.left, width - margin.right])
+                            .padding(0.1)
+                            .domain(marchData.map(d => d.date));
+
+                        var y = d3.scaleLinear()
+                            .range([height - margin.bottom, margin.top])
+                            .domain([0, d3.max(marchData, d => Math.max(d.errors, d.correctAnswers))]);
+
+                        var lineErrors = d3.line()
+                            .x(d => x(d.date) + x.bandwidth() / 2)
+                            .y(d => y(d.errors));
+
+                        var lineCorrectAnswers = d3.line()
+                            .x(d => x(d.date) + x.bandwidth() / 2)
+                            .y(d => y(d.correctAnswers));
+
+                        svg.append("path")
+                            .datum(marchData)
+                            .attr("fill", "none")
+                            .attr("stroke", "darkred")
+                            .attr("stroke-width", 3) // Increased stroke width 
+                            .attr("d", lineErrors);
+
+                        svg.append("path")
+                            .datum(marchData)
+                            .attr("fill", "none")
+                            .attr("stroke", "#48A046")
+                            .attr("stroke-width", 3) // Increased stroke width 
+                            .attr("d", lineCorrectAnswers);
+
+                        svg.append("text")
+                            .attr("x", (width / 2))
+                            .attr("y", (margin.top / 2))
+                            .attr("text-anchor", "middle")
+                            .style("font-size", "16px")
+                            .text("Ошибки и правильные ответы за март 2024 года");
+
+                        svg.append("g")
+                            .attr("transform", `translate(0,${height - margin.bottom})`)
+                            .call(d3.axisBottom(x));
+
+                        svg.append("g")
+                            .attr("transform", `translate(${margin.left},0)`)
+                            .call(d3.axisLeft(y)); // Only one y-axis on the left side 
+                    }
+
+                    createLineGraph();
+
+                </script>
+            </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,603 @@
+
+textarea:focus { 
+    border: none; 
+    outline: none; 
+} 
+ 
+.modal { 
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.7); 
+} 
+ 
+.modal-content { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    padding: 20px; 
+    background-color: #fff; 
+} 
+ 
+.close { 
+    color: #aaa; 
+    float: right; 
+    font-size: 28px; 
+    font-weight: bold; 
+    cursor: pointer; 
+} 
+ 
+.modal { 
+    display: none; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.7); 
+} 
+ 
+.modal-content { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    padding: 20px; 
+    background-color: #fff; 
+    width: 80%; 
+    max-width: 600px; 
+    overflow-y: auto; 
+} 
+ 
+.close { 
+    color: #aaa; 
+    float: right; 
+    font-size: 28px; 
+    font-weight: bold; 
+    cursor: pointer; 
+} 
+ 
+.subTitle { 
+    margin: 0 auto; 
+    width: 1000px; 
+    font-size: 20px; 
+} 
+ 
+#diary { 
+    display: flex; 
+    width: 1000px; 
+    margin: 80px auto; 
+} 
+ 
+#addNote { 
+    width: 200px; 
+    height: 200px; 
+    margin-right: 10px; 
+    font-size: 60px; 
+    background-color: #fff; 
+    color: rgba(0,0,0,0.3); 
+    border: none; 
+    border-radius: 30px; 
+    box-shadow: 0px 3px 5px 0px grey; 
+} 
+ 
+#notes { 
+    display: flex; 
+    /* flex-wrap: wrap; */ 
+    justify-content: space-around; 
+    background-color: #fff; 
+    color: rgba(0,0,0,0.3); 
+    border: none; 
+    border-radius: 30px; 
+    /* box-shadow: 0px 3px 5px 0px grey; */ 
+} 
+ 
+.note { 
+    margin-left: 10px; 
+    margin-right: 10px; 
+    margin-bottom: 10px; 
+    border-bottom: 1px solid rgba(0,0,0,0.1); 
+    background-color: #fff; 
+    color: rgba(0,0,0,0.3); 
+    border: none; 
+    border-radius: 30px; 
+    box-shadow: 0px 3px 5px 0px grey; 
+    width: 200px; 
+    height: 200px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    padding-bottom: 10px; 
+    box-sizing: border-box; 
+} 
+ 
+#note-details { 
+    margin: 0 auto; 
+    width: 1000px; 
+} 
+ 
+#note-details h3 { 
+    width: 1000px; 
+    border: none; 
+    color: #6D828E; 
+    font-size: 24px; 
+} 
+ 
+#note-details p { 
+    font-size: 14px; 
+    margin-bottom: 5px; 
+} 
+ 
+.noteTitle1 { 
+    color: #2E3138; 
+    font-size: 20px; 
+    margin-left: 20px; 
+    margin-top: 15px; 
+} 
+ 
+.content1 { 
+    color: #2E3138; 
+    font-size: 14px; 
+    margin-top: 10px; 
+    margin-left: 20px; 
+} 
+ 
+#note-details { 
+    margin: 0 auto; 
+    width: 1000px; 
+} 
+ 
+#note-details1 { 
+    width: 1000px; 
+} 
+ 
+#note-details h3 { 
+    width: 631px; 
+    border: none; 
+    color: #6D828E; 
+    font-size: 24px; 
+} 
+ 
+#note-details .question { 
+    width: 1000px; 
+    color: #2E3138; 
+    font-size: 20px; 
+    margin-top: 30px; 
+}    
+ 
+.detailsQuestion { 
+    width: 1000px; 
+    color: #2E3138; 
+    font-size: 20px; 
+     
+} 
+ 
+#note-details .question p { 
+    width: 1000px; 
+    border: 0; 
+    font-size: 16px; 
+    border-bottom: 1px solid black; 
+} 
+ 
+.cont { 
+    width: 100%; 
+    margin: 0 auto; 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+} 
+ 
+.save-note { 
+    background-color: #54B9EB; 
+    margin-top: 30px; 
+    width: 180px; 
+    height: 55px; 
+    border-radius: 15px; 
+    color: #fff; 
+    border: none; 
+    border-right: 40px; 
+} 
+ 
+.close-note { 
+    background-color: #54B9EB; 
+    margin-top: 30px; 
+    width: 180px; 
+    height: 55px; 
+    border-radius: 15px; 
+    color: #fff; 
+    border: none; 
+    border-right: 40px; 
+} 
+ 
+.edit-note { 
+    background-color: #54B9EB; 
+    width: 180px; 
+    height: 55px; 
+    border-radius: 15px; 
+    color: #fff; 
+    border: none; 
+    border-right: 40px; 
+} 
+ 
+.delete-note { 
+    background-color: #54B9EB; 
+    width: 180px; 
+    height: 55px; 
+    border-radius: 15px; 
+    color: #fff; 
+    border: none; 
+} 
+ 
+.fff { 
+    background-color: #54B9EB; 
+    width: 180px; 
+    height: 55px;
+
+
+border-radius: 15px; 
+    color: #fff; 
+    border: none; 
+} 
+ 
+.note h3 { 
+    margin-top: 0; 
+    font-size: 16px; 
+} 
+ 
+.time { 
+    background-color: #55BBEB; 
+    font-size: 18px; 
+    width: 200px; 
+    color: #fff; 
+    height: 40px; 
+    text-align: center; 
+    border-top-left-radius: 30px;  
+    border-top-right-radius: 30px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+} 
+ 
+.note p { 
+    height: 40px; 
+     
+    font-size: 14px; 
+} 
+ 
+.show-details { 
+    display: block; 
+    margin-top: 10px; 
+    background-color: #fff; 
+    width: 50px; 
+    margin-left: 10px; 
+    color: rgba(46, 49, 56, 0.41); 
+    border: none;    
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    cursor: pointer; 
+} 
+ 
+.notes1 { 
+     
+    width: 1000 px; 
+} 
+ 
+.note-title { 
+    width: 1000px; 
+    border: none; 
+    color: #6D828E; 
+    font-size: 24px; 
+} 
+ 
+input:focus { 
+    border: none; 
+    outline: none; 
+} 
+ 
+.question { 
+    width: 631px; 
+    color: #2E3138; 
+    font-size: 20px; 
+ 
+} 
+ 
+.note-content { 
+    width: 1000px; 
+    border: 0; 
+    border-bottom: 1px solid black; 
+} 
+ 
+.slider-container { 
+    display: flex; 
+    align-items: center; 
+} 
+ 
+.slider { 
+    overflow-x: hidden; 
+    display: flex; 
+    scroll-behavior: smooth; /* Для плавной прокрутки */ 
+    width: 600px; /* или любая другая ширина по вашему усмотрению */ 
+    margin: 0 15px; 
+} 
+ 
+ 
+ 
+#prevBtn { 
+    border: 1px solid #000; 
+    background-color: #fff; 
+} 
+ 
+#nextBtn { 
+    border: 1px solid #000; 
+    background-color: #fff; 
+} 
+ 
+.nav { 
+    width: 250px; 
+} 
+ 
+.menu { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    padding-left: 70px; 
+    width: 250px; 
+    height: 600px; 
+} 
+ 
+.menuList1 a { 
+    margin-top: 10px; 
+ 
+    display: flex; 
+    align-items: center; 
+    /* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList1 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList1 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.menuList2 a { 
+    margin-top: 10px; 
+ 
+    display: flex; 
+    align-items: center; 
+    /* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList2 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList2 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.menuList3 a { 
+    margin-top: 10px; 
+ 
+    display: flex; 
+    align-items: center; 
+    /* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList3 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList3 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.menuList4 a { 
+    margin-top: 10px; 
+ 
+    display: flex; 
+    align-items: center; 
+    /* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList4 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList4 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.menuList5 a { 
+    margin-top: 10px; 
+    display: flex; 
+    align-items: center;
+
+/* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList5 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList5 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.menuList6 { 
+    margin-top: 10px; 
+    display: flex; 
+    align-items: center; 
+    width: 250px; 
+    height: 34px; 
+    background-color: #54B9EB; 
+    /* Установленный цвет фона */ 
+    border-radius: 15px; 
+    color: #fff; 
+    /* Цвет текста */ 
+} 
+ 
+.menuList6 a { 
+    display: flex; 
+    align-items: center; 
+    text-decoration: none; 
+    /* Убирает подчеркивание текста */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя */ 
+    width: 100%; 
+    /* Заставляет ссылку заполнять всё доступное пространство */ 
+} 
+ 
+.menuList6 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+} 
+ 
+.menuList6 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+    /* Отступ слева для изображения */ 
+} 
+ 
+.menuList7 a { 
+    margin-top: 10px; 
+ 
+    display: flex; 
+    align-items: center; 
+    /* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList7 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList7 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.menuList8 a { 
+    margin-top: 10px; 
+ 
+    display: flex; 
+    align-items: center; 
+    /* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList8 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList8 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.menuList9 a { 
+    margin-top: 10px; 
+ 
+    display: flex; 
+    align-items: center; 
+    /* Гарантирует, что элементы выровнены по центру по вертикали */ 
+    text-decoration: none; 
+    /* Убирает подчеркивание ссылки */ 
+} 
+ 
+.menuList9 p { 
+    margin-left: 10px; 
+    /* Регулируйте отступ по вкусу */ 
+    color: inherit; 
+    /* Наследует цвет текста от родителя, если нужно */ 
+} 
+ 
+.menuList9 img { 
+    width: 24px; 
+    /* Примерный размер, регулируйте под свои нужды */ 
+    height: auto; 
+    /* Поддерживает пропорции изображения */ 
+} 
+ 
+.men { 
+    margin-left: 45px; 
+} 
+ 
+.logo { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-top: 20px; 
+    margin-left: 45px; 
+    margin-right: 45px; 
+} 
+ 
+.search { 
+    width: 620px; 
+    border: none; 
+ 
+} 
+ 
+#no-border { 
+    border: none; 
+    outline: none; 
+}

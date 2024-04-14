@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            font-family: "Inter", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cont {
+            display: flex;
+            margin-top: 30px;
+        }
+
+        .container {
+            width: 1000px;
+            margin-top: 20px;
+            margin-left: 180px;
+        }
+
+        .hr {
+            width: 341px; /* Устанавливает ширину линии в 50% от ширины родительского элемента */
+            text-align: left; /* Выравнивание влево */
+            margin-left: 0; /* Убирает отступ слева, чтобы линия начиналась от края родительского элемента */
+            border: 0; /* Убирает стандартную границу */
+            height: 1px; /* Устанавливает высоту линии */
+            background-color: #000; /* Цвет линии */
+            margin-top: 10px;
+        }
+
+        .previous-results {
+            display: flex;
+
+        }
+
+        .previous-results, .analysis {
+            margin-bottom: 20px;
+        }
+
+        .previous-results, .block {
+            display: flex;
+        }
+
+
+
+        .test-result, .test-analysis, .mistake {
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+            .test-result h3, .test-analysis h3, .mistake h4 {
+                color: #000;
+                margin-bottom: 5px;
+            }
+
+            .test-result p, .test-analysis p, .mistake p {
+                color: #555;
+                margin-bottom: 5px;
+            }
+
+        .analysis {
+            display: none;
+        }
+
+        a {
+            text-decoration-line: none;
+        }
+
+        .show-analysis {
+            color: #49A4D2;
+        }
+
+        .diagram {
+            width: 600px;
+        }
+
+        .colorize-yellow {
+            color: #E1A738;
+        }
+
+        .colorize-green {
+            color: #48A046;
+        }
+
+        .nav {
+            width: 250px;
+        }
+        
+        .menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-left: 70px;
+            width: 250px;
+            height: 600px;
+        }
+
+        .menuList1 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList1 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+            color: inherit; /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList1 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+        .menuList2 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList2 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+            color: inherit; /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList2 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+
+        .menuList3 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList3 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+            color: inherit; /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList3 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+
+        .menuList4 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList4 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+            color: inherit; /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList4 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+
+        .menuList5 a {
+            margin-top: 10px;
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList5 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+            color: inherit; /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList5 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+
+        .menuList6 {
+            margin-top: 10px;
+            display: flex;
+            width: 250px;
+            height: 34px;
+            background-color: #54B9EB; /* Установленный цвет фона */
+            border-radius: 15px;
+            color: #fff; /* Цвет текста */
+        }
+
+        .menuList6 a {
+            display: flex;
+            align-items: center;
+            text-decoration: none; /* Убирает подчеркивание текста */
+            color: inherit; /* Наследует цвет текста от родителя */
+            width: 100%; /* Заставляет ссылку заполнять всё доступное пространство */
+        }
+
+        .menuList6 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+        }
+
+        .menuList6 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */ /* Отступ слева для изображения */
+        }
+
+        .menuList7 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList7 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+            color: inherit; /* Наследует цвет текста от родителя, если нужно */
+        }
+
+        .menuList7 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+
+        .menuList8 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList8 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+        
+        }
+
+        .menuList8 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+
+        .menuList9 a {
+            margin-top: 10px;
+
+            display: flex;
+            align-items: center; /* Гарантирует, что элементы выровнены по центру по вертикали */
+            text-decoration: none; /* Убирает подчеркивание ссылки */
+        }
+
+        .menuList9 p {
+            margin-left: 10px; /* Регулируйте отступ по вкусу */
+    
+        }
+
+        .menuList9 img {
+            width: 24px; /* Примерный размер, регулируйте под свои нужды */
+            height: auto; /* Поддерживает пропорции изображения */
+        }
+
+        .men {
+            margin-left: 45px;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-left: 45px;
+            margin-right: 45px;
+        }
+
+        .search {
+            width: 620px;
+            border: none;
+            
+        }
+
+        #no-border {
+            border: none;
+            outline: none;
+        }
+        
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div class="body">
+        <div class="logo">
+            <div class="loog">
+                <h1>LOGO</h1>
+            </div>
+            <div class="search"><input type="search" name="" id="no-border" placeholder="Поиск"></div>
+            <div class="prof">
+                <div class="aaaa">
+                    <div class="lang">
+                        
+                        <select id="languageSelect" name="language">
+                            <option value="ru" selected>RUS</option>
+                            <option value="kz">KAZ</option>
+                            <option value="en">ENG</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cont">
+            <div class="nav">
+                <a href="page1.html">Меню</a>
+                <div class="menu">
+                    <div class="menuLists1">
+                        <div class="menuList1">
+                            <a href="">
+                                <img src="" alt="">
+                                <a href="page1.html">Лента</a>
+                            </a>
+                        </div>
+                        <div class="menuList2">
+                            <a href="">
+                                <img src="" alt="">
+
+                                <a href="page1.html">Расписание</a>
+                            </a>
+                        </div>
+                        <div class="menuList3">
+                            <a href="">
+                                <img src="" alt="">
+
+                                <a href="page1.html">Оценки</a>
+                            </a>
+                        </div>
+                        <div class="menuList4">
+                            <a href="">
+                                <img src="" alt="">
+
+                                <a href="page1.html">Избранные</a>
+                            </a>
+                        </div>
+                        <div class="menuList5">
+                            <a href="">
+                                <img src="" alt="">
+                                <a href="report.html">Отчет</a>
+                            </a>
+                        </div>
+                        <div class="menuList6">
+                            <a href="">
+                                <img src="" alt="">
+                                <a href="workOnErrors.html">Работа над ошибками</a>
+                            </a>
+                        </div>
+                        <div class="menuList7">
+                            <a href="">
+                                <a href="index.html"><img src="diary-svgrepo-com 1.png" alt="">Diary</a>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="menuLists2">
+                        <div class="menuList8">
+                            <a href="">
+                                <img src="/Users/anm24/Downloads/content_paste_FILL0_wght400_GRAD0_opsz24 1.png" alt="">
+                                <p>Помощь</p>
+                            </a>
+                        </div>
+                        <div class="menuList9">
+                            <a href="">
+                                <img src="" alt="">
+                                <p>Выход</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <header class="header">
+                    <h2>
+                        Работа над ошибками
+                    </h2>
+                    <p style="font-size: 16px; margin-top: 10px;">Анализ выполненных тестов и заданий</p>
+        
+                    <hr class="hr">
+                    <p style="margin-top: 10px;">Предыдущие результаты</p>
+
+                </header>
+        
+                <section class="previous-results" style="margin-top: 30px;">
+                    <div class="tesst1">
+                        <div class="test-result">
+                            <h3>Тест 1 (Математика)</h3>
+                            <p style="margin-top: 20px; margin-left: 10px;">Дата сдачи: 10 апреля 2024</p>
+                            <p style="margin-left: 10px;">Оценка: <span class="colorize-yellow">75%</span></p>
+                            <a href="#" style="margin-left: 10px;" class="show-analysis" data-target="foranalysis1">Подробнее</a>
+                        </div>
+                        <div class="test-result">
+                            <h3>Тест 2 (Математика)</h3>
+                            <p style="margin-top: 20px;margin-left: 10px;">Дата сдачи: 10 апреля 2024</p>
+                            <p style="margin-left: 10px;">Оценка: <span class="colorize-yellow">75%</span></p>
+                            <a style="margin-left: 10px;" href="#" class="show-analysis" data-target="foranalysis2">Подробнее</a>
+                        </div>
+                    </div>
+                    <div class="tesst2" style="margin-left: 40px;">
+                        <div class="test-result">
+                            <h3>Задание 1 (Физика)</h3>
+                            <p style="margin-top: 20px;margin-left: 10px;">Дата сдачи: 8 апреля 2024</p>
+                            <p style="margin-left: 10px;">Оценка: <span class="colorize-green">85%</span></p>
+                            <a style="margin-left: 10px;" href="#" class="show-analysis" data-target="foranalysis3">Подробнее</a>
+                        </div>
+                        <div class="test-result">
+                            <h3>Тест 2 (Математика)</h3>
+                            <p style="margin-top: 20px;margin-left: 10px;">Дата сдачи: 10 апреля 2024</p>
+                            <p style="margin-left: 10px;">Оценка: <span class="colorize-green">85%</span></p>
+                            <a style="margin-left: 10px;" href="#" class="show-analysis" data-target="foranalysis4">Подробнее</a>
+                        </div>
+                    </div>
+                </section>
+        
+                <section class="analysis" id="analysis-foranalysis1">
+                    <div class="test-analysis">
+                        <h3>Анализ теста 1 (Математика)</h3>
+        
+                        <div class="block">
+        
+                            <div class="info">
+                                <p>Общая информация</p>
+                                <p style="padding-left: 10px;">Название теста: Тест по алгебре и геометрии</p>
+                                <p style="padding-left: 10px;">Количество вопросов: 20</p>
+                                <p style="padding-left: 10px;">Оценка: 75%</p>
+                            </div>
+        
+                            <div class="diagram">
+                                <canvas id="myPieChart"></canvas>
+                            </div>
+        
+        
+                        </div>
+        
+        
+        
+                        <div class="mistake">
+                            <h4>Вопрос 3: Неправильный ответ</h4>
+                            <p>Объяснение ошибки: Неправильно применена формула для вычисления объема фигуры.</p>
+                            <p>Рекомендация: Повторите тему о формулах для вычисления объемов геометрических фигур.</p>
+                        </div>
+                        <div class="mistake">
+                            <h4>Вопрос 7: Неправильный ответ</h4>
+                            <p>Объяснение ошибки: Неправильно вычислено значение функции при заданных значениях переменных.</p>
+                            <p>Рекомендация: Повторите тему о функциях и их значениях.</p>
+                        </div>
+                        <div class="mistake">
+                            <h4>Вопрос 12: Неправильный ответ</h4>
+                            <p>Объяснение ошибки: Неправильно определен порядок выполнения операций в математическом выражении.</p>
+                            <p>Рекомендация: Повторите тему о приоритетах операций в математике.</p>
+                        </div>
+        
+                        <div class="mistake">
+                            <h4>Вопрос 18: Неправильный ответ</h4>
+                            <p>Объяснение ошибки: Неправильно определена основная идея текста.</p>
+                            <p>Рекомендация: Повторите тему о поиске основной идеи в тексте и ее выделении.</p>
+                        </div>
+        
+                        <div class="mistake">
+                            <h4>Вопрос 22: Неправильный ответ</h4>
+                            <p>Объяснение ошибки: Неправильно выбраны грамматические конструкции в предложении.</p>
+                            <p>Рекомендация: Повторите тему о правильном построении предложений на выбранном языке.</p>
+                        </div>
+        
+        
+                        <a href="#" class="close-analysis" style="color: red;">Закрыть</a>
+        
+                    </div>
+                </section>
+        
+        
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const showAnalysisLinks = document.querySelectorAll('.show-analysis');
+            showAnalysisLinks.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    const analysisSection = document.getElementById('analysis-' + targetId);
+                    analysisSection.style.display = 'block';
+                });
+            });
+
+            const closeAnalysisLinks = document.querySelectorAll('.close-analysis');
+            closeAnalysisLinks.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const analysisSection = this.closest('.analysis');
+                    analysisSection.style.display = 'none';
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Данные для диаграммы
+        var data = {
+            labels: ['Правильные ответы', 'Неправильные ответы'],
+            datasets: [{
+                data: [15, 5],
+                backgroundColor: ['#49A4D2', '#E1A738']
+            }]
+        };
+
+        // Настройки диаграммы
+        var options = {
+            responsive: true,
+            maintainAspectRatio: false
+        };
+
+        // Получаем элемент canvas
+        var ctx = document.getElementById('myPieChart').getContext('2d');
+
+        // Создаем диаграмму
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    </script>
+
+<script>
+    window.embeddedChatbotConfig = {
+    chatbotId: "MvR1QvDDOXpFsinbaKWhy",
+    domain: "www.chatbase.co"
+    }
+    </script>
+    <script
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="MvR1QvDDOXpFsinbaKWhy"
+    domain="www.chatbase.co"
+    defer>
+    </script>
+
+
+</body>
+</html>
